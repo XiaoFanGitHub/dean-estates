@@ -1,0 +1,7 @@
+eureka:
+  instance:
+    hostname: dean-getway
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://luobole:yhsksdasdwe@10.0.1.191:8761/eureka/

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <logger name="org.springframework.web" level="ERROR"/>
+    <logger name="org.springframework.security" level="ERROR"/>
+    <logger name="org.springframework" level="ERROR"/>
+    <logger name="ch.qos.logback" level="ERROR"/>
+    <logger name="com.zooms.dean" level="WARN"/>
+
+    <springProfile name="dev">
+        <property name="LOG_PATH" value="${java.io.tmpdir:-/tmp}"/>
+        <property name="LOG_FILE"
+                  value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/dean-registry.%d{yyyy-MM-dd}.log}"/>
+
+        <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!--日志文件输出的文件名-->
+                <FileNamePattern>${LOG_FILE}</FileNamePattern>
+                <!--日志文件保留天数-->
+                <maxHistory>15</maxHistory>
+                <totalSizeCap>30GB</totalSizeCap>
+            </rollingPolicy>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+            </encoder>
+            <!--日志文件最大的大小-->
+            <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                <MaxFileSize>10MB</MaxFileSize>
+            </triggeringPolicy>
+        </appender>
+
+        <appender name="asyncFileAppender" class="ch.qos.logback.classic.AsyncAppender">
+            <discardingThreshold>0</discardingThreshold>
+            <queueSize>500</queueSize>
+            <appender-ref ref="fileAppender"/>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="consoleAppender"/>
+            <appender-ref ref="asyncFileAppender"/>
+        </root>
+    </springProfile>
+
+    <!-- 测试环境 -->
+    <springProfile name="test">
+        <property name="LOG_PATH" value="/var/log/rdp"/>
+        <property name="LOG_FILE"
+                  value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/dean-registry.%d{yyyy-MM-dd}.log}"/>
+
+        <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!--日志文件输出的文件名-->
+                <FileNamePattern>${LOG_FILE}</FileNamePattern>
+                <!--日志文件保留天数-->
+                <maxHistory>15</maxHistory>
+                <totalSizeCap>30GB</totalSizeCap>
+            </rollingPolicy>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+            </encoder>
+            <!--日志文件最大的大小-->
+            <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                <MaxFileSize>10MB</MaxFileSize>
+            </triggeringPolicy>
+        </appender>
+
+        <appender name="asyncFileAppender" class="ch.qos.logback.classic.AsyncAppender">
+            <discardingThreshold>0</discardingThreshold>
+            <queueSize>500</queueSize>
+            <appender-ref ref="fileAppender"/>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="asyncFileAppender"/>
+        </root>
+    </springProfile>
+
+    <!-- 生产环境 -->
+    <springProfile name="prod">
+        <property name="LOG_PATH" value="/var/log/rdp"/>
+        <property name="LOG_FILE"
+                  value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/dean-registry.%d{yyyy-MM-dd}.log}"/>
+
+        <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <!--日志文件输出的文件名-->
+                <FileNamePattern>${LOG_FILE}</FileNamePattern>
+                <!--日志文件保留天数-->
+                <maxHistory>15</maxHistory>
+                <totalSizeCap>30GB</totalSizeCap>
+            </rollingPolicy>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <pattern>${FILE_LOG_PATTERN}</pattern>
+            </encoder>
+            <!--日志文件最大的大小-->
+            <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                <MaxFileSize>10MB</MaxFileSize>
+            </triggeringPolicy>
+        </appender>
+
+        <appender name="asyncFileAppender" class="ch.qos.logback.classic.AsyncAppender">
+            <discardingThreshold>0</discardingThreshold>
+            <queueSize>500</queueSize>
+            <appender-ref ref="fileAppender"/>
+        </appender>
+
+        <root level="INFO">
+            <appender-ref ref="asyncFileAppender"/>
+        </root>
+    </springProfile>
+</configuration>

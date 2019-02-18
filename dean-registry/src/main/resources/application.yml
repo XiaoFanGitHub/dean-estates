@@ -1,0 +1,12 @@
+server:
+  port: 8762
+  undertow:
+    io-threads: 4
+    worker-threads: 32
+    bufferSize: 4096
+    direct-buffers: true
+  connection-timeout: 5000
+
+spring:
+  profiles:
+    active: dev

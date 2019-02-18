@@ -1,0 +1,67 @@
+
+server:
+  port: 8013
+  context-path: /push
+  undertow:
+    io-threads: 4
+    worker-threads: 32
+    bufferSize: 4096
+    direct-buffers: true
+  connection-timeout: 5000
+
+dean.auth.security:
+  global: true
+  server: dean-auth
+  skip_path:
+    - /*/inner/**
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: dean-push
+
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+ribbon:
+  OKToRetryOnAllOperations: true
+  MaxAutoRetries: 3
+  MaxAutoRetriesNextServer: 3
+  ServerListRefreshInterval: 2000
+  ConnectTimeout: 6000
+  ReadTimeout: 6000
+
+
+feign:
+  hystrix:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 4096
+    response:
+      enabled: true
+
+hystrix:
+  command:
+    default:
+      requestCache:
+        enabled: true
+      fallback:
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 110
+      circuitBreaker:
+        enabled: true
+        requestVolumeThreshold: 30
+        errorThresholdPercentage: 50
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 30000
+            interruptOnTimeout: 6000

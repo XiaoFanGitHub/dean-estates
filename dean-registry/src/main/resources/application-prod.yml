@@ -1,0 +1,14 @@
+eureka:
+  instance:
+    hostname: dean-registry
+    prefer-ip-address: true
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    service-url:
+      defaultZone: http://${security.user.name}:${security.user.password}@${eureka.instance.hostname}:${server.port}/eureka/
+
+security:
+  user:
+    name: luobole
+    password: ${REGISTRY_SERVER_PASSWORD:yhsksdasdwe}

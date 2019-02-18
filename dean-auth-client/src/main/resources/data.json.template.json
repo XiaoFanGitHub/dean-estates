@@ -1,0 +1,102 @@
+{
+  "appKey": "dean-auth",
+  "appName": "",
+  "notUpdate": 0,
+  "roles": {
+    "add": [
+      {
+        "id": "",
+        "name": ""
+      }
+    ],
+    "remove": [
+      {
+        "id": "",
+        "name": ""
+      }
+    ]
+  },
+  "authorities": {
+    "add": [
+      {
+        "id": "",
+        "name": "",
+        "tableName": "",
+        "domainForce": "",
+        "global": false,
+        "roles": {
+          "add": [
+            "",
+            ""
+          ],
+          "remove": [
+            "",
+            ""
+          ]
+        }
+      }
+    ],
+    "remove": [
+      {
+        "id": "",
+        "name": "",
+        "domainForce": "",
+        "global": false,
+        "role": {
+          "add": [
+            "",
+            ""
+          ],
+          "remove": [
+            "",
+            ""
+          ]
+        }
+      }
+    ]
+  },
+  "menus": {
+    "add": [
+      {
+        "id": "",
+        "name": "",
+        "parent": "",
+        "action": "",
+        "sequence": "",
+        "hide": "",
+        "icon": "",
+        "roleIds": {
+          "add": [
+            "",
+            ""
+          ],
+          "remove": [
+            "",
+            ""
+          ]
+        }
+      }
+    ],
+    "remove": [
+      {
+        "id": "",
+        "name": "",
+        "parent": "",
+        "action": "",
+        "sequence": "",
+        "hide": "",
+        "icon": "",
+        "roleIds": {
+          "add": [
+            "",
+            ""
+          ],
+          "remove": [
+            "",
+            ""
+          ]
+        }
+      }
+    ]
+  }
+}

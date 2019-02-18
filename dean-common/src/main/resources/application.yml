@@ -1,0 +1,14 @@
+
+server:
+  port: 8011
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: dean-common
+
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true

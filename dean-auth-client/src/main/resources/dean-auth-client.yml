@@ -1,0 +1,62 @@
+
+dean.auth.security:
+  server: dean-auth
+  auth_path:
+    - /demo
+    - /demo/index
+  skip_path:
+    - /admin/*
+    - /admin/linsd/
+
+spring:
+  sleuth:
+    hystrix:
+      strategy:
+        enabled: true
+    sampler:
+      percentage: 1
+    integration:
+      enabled: false
+    scheduled:
+      skip-pattern: "^org.*HystrixStreamTask$"
+
+
+ribbon:
+  OKToRetryOnAllOperations: true
+  MaxAutoRetries: 3
+  MaxAutoRetriesNextServer: 3
+  ServerListRefreshInterval: 2000
+  ConnectTimeout: 6000
+  ReadTimeout: 6000
+
+
+feign:
+  hystrix:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 4096
+    response:
+      enabled: true
+
+hystrix:
+  command:
+    default:
+      requestCache:
+        enabled: true
+      fallback:
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 110
+      circuitBreaker:
+        enabled: true
+        requestVolumeThreshold: 30
+        errorThresholdPercentage: 50
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 30000
+            interruptOnTimeout: 6000

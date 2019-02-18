@@ -1,0 +1,83 @@
+server:
+  port: 8012
+  context-path: /auth
+  undertow:
+    io-threads: 4
+    worker-threads: 32
+    bufferSize: 4096
+    direct-buffers: true
+  connection-timeout: 5000
+#过滤那些请求不需要权限验证
+dean.auth.security:
+  skip_path:
+    - /*/user/register
+    - /*/app/init
+    - /*/token
+    - /*/check_token
+    - /*/third/login
+    - /*/bind/login
+    - /*/verification_code/*
+    - /*/inner/**
+
+dean.platform:
+  server: "dean-platform"
+
+dean.auth.jwt:
+  access_token_exp_time:  1440 # Number of minutes
+  refresh_token_exp_time: 43200 # Minutes
+  token_issuer: http://www.luobobb.com
+  token_signing_key: xm8EV6Hy5RMFK4EEACIDAwQus
+
+dean.auth.send:
+  code_exp_time: 60 # Number of minutes
+  send_limit:
+    interval: 30 #Number of second
+    limit_time: 3600 #Number of second
+    limit_count: 1000 #Number of second
+  sms:
+    template:
+      template_register: "SMS_84710276"
+      template_login: "SMS_84710278"
+      template_auth_sure: "SMS_84710280"
+      template_change_password: "SMS_84710275"
+      template_info_modify: "SMS_84710274"
+      template_common: "SMS_135042147"
+  mail:
+    template:
+      template_register: "register_verification_code"
+      template_login: "login_verification_code"
+      template_auth_sure: "SMS_84710280"
+      template_change_password: "change_pwd_verification_code"
+      template_info_modify: "info_modify_verification_code"
+      template_common: "common_verification_code"
+
+
+dean.unique_id:
+  worker_id: 1
+  data_center_id: 1
+
+spring:
+  profiles:
+    active: dev
+  thymeleaf:
+    cache: true
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+  mail:
+    default-encoding: UTF-8
+    username: 237242115@qq.com
+    password: spuzcvocwejocabi
+    protocol: smtp
+    host: smtp.qq.com
+    port: 465
+    test-connection: false
+    properties:
+      mail.smtp.ssl.enable: true
+      mail.smtp.auth: true
+      mail.smtp.timeout: 5000
+
+init:
+  data:
+    role: "jxs"
+
